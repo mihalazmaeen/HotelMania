@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminLoginController extends Controller
 {
     public function index(){
-        $pass=Hash::make('12345');
-        dd($pass);
+
         return view('admin.login');
     }
     public function ForgetPage(){
