@@ -22,7 +22,7 @@
 <div id="app">
     <div class="main-wrapper">
 
-      @include('admin.layout.sidebar')
+      @include('admin.layout.nav')
 
 
 
