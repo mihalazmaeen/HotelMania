@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class AdminLoginController extends Controller
 {
     public function index(){
+        $pass=Hash::make('12345');
+        dd($pass);
         return view('admin.login');
     }
     public function ForgetPage(){
