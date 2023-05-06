@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,5 @@ Route::post('/admin/reset/password/',[AdminLoginController::class,'AdminResetPas
 Route::post('/admin/new/password/',[AdminLoginController::class,'AdminCreateNewPassword'])->name('admin.submit.new.password');
 Route::get('/admin/reset-password/{token}/{email}',[AdminLoginController::class,'AdminNewPassword'])->name('admin.new.password');
 Route::get('/admin/forget_password',[AdminLoginController::class,'ForgetPage'])->name('admin.forgetPassword');
+Route::get('/admin/edit-profile',[AdminProfileController::class,'index'])->name('admin.editProfile')->middleware('admin:admin');
+Route::post('/admin/profile/update',[AdminProfileController::class,'AdminProfileUpdate'])->name('admin.profile.update');
