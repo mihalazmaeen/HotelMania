@@ -55,8 +55,29 @@ class AdminLoginController extends Controller
             return redirect()->route('admin.login')->with('success','Please follow the instructions sent to your mail');
         }
     }
+    public function AdminNewPassword($token,$email){
+        $admin_reset=Admin::where('token',$token)->where('email',$email)->first();
+        if(!$admin_reset){
+            return redirect()->route('admin.login');
+        }
+        return view('admin.layout.reset_password',compact('token','email'));
+    }
     public function Logout(){
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
+    }
+    public function AdminCreateNewPassword(Request $request){
+        $request->validate([
+            'password' =>'required',
+            'retype_password'=>'required|same:password',
+        ]);
+        $admin_data=Admin::where('token',$request->token)->where('email',$request->email)->first();
+        $admin_data->password=Hash::make($request->password);
+        $admin_data->token='';
+        $admin_data->update();
+        return redirect()->route('admin.login');
+
+
+
     }
 }

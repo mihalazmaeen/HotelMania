@@ -23,4 +23,6 @@ Route::get('/admin/login',[AdminLoginController::class,'index'])->name('admin.lo
 Route::get('/admin/logout',[AdminLoginController::class,'Logout'])->name('admin.logout');
 Route::post('/admin/login_submit',[AdminLoginController::class,'AdminLogin'])->name('admin.login.submit');
 Route::post('/admin/reset/password/',[AdminLoginController::class,'AdminResetPassword'])->name('admin.reset.password');
+Route::post('/admin/new/password/',[AdminLoginController::class,'AdminCreateNewPassword'])->name('admin.submit.new.password');
+Route::get('/admin/reset-password/{token}/{email}',[AdminLoginController::class,'AdminNewPassword'])->name('admin.new.password');
 Route::get('/admin/forget_password',[AdminLoginController::class,'ForgetPage'])->name('admin.forgetPassword');
