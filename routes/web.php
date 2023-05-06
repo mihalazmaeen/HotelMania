@@ -22,4 +22,5 @@ Route::get('/admin/dashboard',[AdminDashboardController::class,'index'])->name('
 Route::get('/admin/login',[AdminLoginController::class,'index'])->name('admin.login');
 Route::get('/admin/logout',[AdminLoginController::class,'Logout'])->name('admin.logout');
 Route::post('/admin/login_submit',[AdminLoginController::class,'AdminLogin'])->name('admin.login.submit');
+Route::post('/admin/reset/password/',[AdminLoginController::class,'AdminResetPassword'])->name('admin.reset.password');
 Route::get('/admin/forget_password',[AdminLoginController::class,'ForgetPage'])->name('admin.forgetPassword');

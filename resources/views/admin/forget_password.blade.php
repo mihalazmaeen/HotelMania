@@ -30,7 +30,8 @@
                                 <h4 class="text-center">Reset Password</h4>
                             </div>
                             <div class="card-body card-body-auth">
-                                <form method="POST" action="">
+                                <form method="POST" action="{{route('admin.reset.password')}}">
+                                    @csrf
                                     <div class="form-group">
                                         <input type="email" class="form-control" name="email" placeholder="Email Address" value="" autofocus>
                                     </div>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\websitemail;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
 
 
 class AdminLoginController extends Controller
@@ -32,8 +34,26 @@ class AdminLoginController extends Controller
         }else{
             return redirect()->route('admin.login');
         }
+    }
+    public function AdminResetPassword(Request $request){
+        $request->validate([
+            'email'=>'required|email',
 
-
+        ]);
+        $admin_mail=Admin::where('email',$request->email)->first();
+        if(!$admin_mail){
+            return redirect()->back()->with('error','Email does not match');
+        }else{
+            $token=hash('sha256',time());
+            $admin_mail->token=$token;
+            $admin_mail->update();
+            $reset_link=url('admin/reset-password/'.$token.'/'.$request->email);
+            $subject='Reset Password';
+            $message='Please click the following link <br>';
+            $message .= '<a href="'.$reset_link.'">Click Here</a>';
+            Mail::to($request->email)->send(new websitemail($subject, $message));
+            return redirect()->route('admin.login')->with('success','Please follow the instructions sent to your mail');
+        }
     }
     public function Logout(){
         Auth::guard('admin')->logout();
